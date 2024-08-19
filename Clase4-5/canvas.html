@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        canvas{
+            border: 1px solid #000;
+            height: 70%;
+            width: 70%;
+        }
+    </style>
+    <canvas id="main_canvas">
+
+    </canvas>
+    <button id="btn-export">Exportar firma</button>
+    <a id="link" href="" download="firma.png">Descargar firma</a>
+    
+    <script>
+        let canvas = document.getElementById('main_canvas');
+        let ctx = canvas.getContext('2d');
+        let rect = canvas.getBoundingClientRect();
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        let posX, posY = 0;
+        let drawing = false;
+
+        function draw(posX, posY, posXEnd, posYEnd){
+            ctx.beginPath();
+            ctx.moveTo(posX, posY); 
+            ctx.lineTo(posXEnd, posYEnd);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        canvas.addEventListener('mousemove', function(event){
+            
+            if (drawing){
+                draw(posX, posY, event.clientX - rect.left, event.clientY - rect.top);
+                posX = event.clientX - rect.left;
+                posY = event.clientY - rect.top;
+            }
+        });
+
+        canvas.addEventListener("mousedown", function(event){
+            drawing = true;
+            posX = event.clientX - rect.left;
+            posY = event.clientY - rect.top;
+        });
+
+        canvas.addEventListener("mouseup", function(event){
+           if (drawing){
+               draw(posX, posY, event.clientX - rect.left, event.clientY - rect.top);
+                posX = 0;
+                posY = 0;
+               drawing = false;
+           }
+        });
+       
+        document.getElementById('btn-export').addEventListener('click', function(){
+          let dataURL = canvas.toDataURL();
+          link = document.getElementById('link')
+          link.href = dataURL;            
+        });
+        
+
+    </script>
+</body>
+</html>

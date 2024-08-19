@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+
+    <style>
+        .red-color{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Hola con Javascript</h2>
+
+    <form id="form-send" method="POST" action="/">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name">
+        <label for="dob">Fecha de nacimiento</label>
+        <input type="date" id="dob" name="dob">
+        <button type="submit">Guardar</button>
+    </form>
+    <button id="cargar-script">Cargar script externo</button>
+    <button id="cargar-script-2">Cargar script externo 2</button>
+
+    <div id="inyectar-datos"></div>
+
+    <script>
+        //alert("Hola")
+        console.log("Hola")
+    </script>
+    <script src="script.js"/>
+</body>
+</html>
